@@ -1,0 +1,212 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no" />
+        <title>用户管理</title>
+        <link rel="stylesheet" href="font-awesome-4.7.0/css/font-awesome.min.css" />
+        <link href="css/bootstrap.min.css" rel="stylesheet" />
+        <link rel="stylesheet" href="js/skin/default/layer.css" />
+        <link rel="icon" href="ico/1.ico">
+        <script src="js/jquery-1.11.1.min.js"></script>
+        <link href="css/mylogin.css" rel="stylesheet" />
+        <link rel="stylesheet" href="css/default.css">
+        <script src="js/layer.js"></script>
+        <!--[if lt IE 9]>
+        <script src="js/html5shiv.js"></script>
+        <script src="js/respond.min.js"></script>
+        <![endif]-->
+    </head>
+    <body>
+        <nav class="navbar navbar-inverse navbar-fixed-top bs-docs-nav">
+            <div class="container-fluid">
+
+                <!-- Brand and toggle get grouped for better mobile display -->
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <span class="navbar-brand">请假系统</span>
+                </div>
+
+                <!-- Collect the nav links, forms, and other content for toggling -->
+                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                    <ul class="nav navbar-nav">
+                        <li class="active"><a href="javascript:location.reload();">用户管理</a></li>
+                        <li id="meeting"><a href="javascript:;">添加会议</a></li>
+                        <li><a href="check_meeting.html">查看会议</a></li>
+                        <li><a href="export.html">导出请假表格</a></li>
+                    </ul>
+                    <ul class="nav navbar-nav navbar-right">
+                        <li><a href="About.html">关于</a></li>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                                秘书部
+                                <span class="caret"></span>
+                            </a>
+                            <ul class="dropdown-menu" role="menu">
+                                <li><a href="pwd_change.html">修改密码</a></li>
+                                <li class="divider"></li>
+                                <li><a href="javascript:exit();">退出</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div><!-- /.navbar-collapse -->
+            </div><!-- /.container-fluid -->
+        </nav>
+        <div class="bs-docs-header" style="margin-top: 10px;">
+            <ol class="breadcrumb">
+                <li>当前位置：</li>
+                <li><a href="mishubu_home.html">主页</a></li>
+                <li class="active">用户管理</li>
+            </ol>
+        </div>
+        <ul class="nav nav-tabs">
+            <li class="active"><a href="javascript:location.reload();">现任用户</a></li>
+            <li><a href="old_user.html">往届用户</a></li>
+            <li id="new_user"><a href="javascript:;">新用户</a></li>
+        </ul>
+        <div class="container" style="background-color: #fff;padding-top: 20px;">
+            <div class="row">
+                <div class="col-md-12" role="main">
+                    <div class="bs-docs-section">
+                        <div class="table-responsive">
+                            <table class="table table-hover table-striped">
+                                <thead>
+                                    <tr>
+                                        <th class="text-center" width="20%">学号</th>
+                                        <th class="text-center" width="10%">姓名</th>
+                                        <th class="text-center" width="10%">部门</th>
+                                        <th class="text-center" width="10%">职位</th>
+                                        <th class="text-center" width="10%">状态</th>
+                                        <th class="text-center" width="40%">操作</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <th colspan="6">网络部</th>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-center">201512010117</td>
+                                        <td class="text-center">卢哈哈</td>
+                                        <td class="text-center">网络部</td>
+                                        <td class="text-center">委员</td>
+                                        <td class="text-center">在职</td>
+                                        <td class="text-center">
+                                            <a href="" class="btn btn-primary btn-sm">修改</a>
+                                            <a href="" class="btn btn-danger btn-sm">删除</a>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-center">201512010117</td>
+                                        <td class="text-center">卢哈哈</td>
+                                        <td class="text-center">网络部</td>
+                                        <td class="text-center">委员</td>
+                                        <td class="text-center">在职</td>
+                                        <td class="text-center">
+                                            <a href="" class="btn btn-primary btn-sm">修改</a>
+                                            <a href="" class="btn btn-danger btn-sm">删除</a>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-center">201512010117</td>
+                                        <td class="text-center">卢哈哈</td>
+                                        <td class="text-center">网络部</td>
+                                        <td class="text-center">委员</td>
+                                        <td class="text-center">在职</td>
+                                        <td class="text-center">
+                                            <a href="" class="btn btn-primary btn-sm">修改</a>
+                                            <a href="" class="btn btn-danger btn-sm">删除</a>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-center">201512010117</td>
+                                        <td class="text-center">卢哈哈</td>
+                                        <td class="text-center">网络部</td>
+                                        <td class="text-center">委员</td>
+                                        <td class="text-center">在职</td>
+                                        <td class="text-center">
+                                            <a href="" class="btn btn-primary btn-sm">修改</a>
+                                            <a href="" class="btn btn-danger btn-sm">删除</a>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-center">201512010117</td>
+                                        <td class="text-center">卢哈哈</td>
+                                        <td class="text-center">网络部</td>
+                                        <td class="text-center">委员</td>
+                                        <td class="text-center">在职</td>
+                                        <td class="text-center">
+                                            <a href="" class="btn btn-primary btn-sm">修改</a>
+                                            <a href="" class="btn btn-danger btn-sm">删除</a>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>			
+                    </div>
+                    <!--<nav class="change">
+                        <ul class="pagination pagination-lg">
+                            <li class="disabled">
+                                <span>
+                                    <span aria-hidden="true">&laquo;</span>
+                                </span>
+                            </li>
+                            <li class="active">
+                                <span>1 <span class="sr-only">(current)</span></span>
+                            </li>
+                            <li><a href="#">2</a></li>
+                            <li><a href="#">3</a></li>
+                            <li><a href="#">4</a></li>
+                            <li><a href="#">5</a></li>
+                            <li>
+                                <a href="#" aria-label="Next">
+                                    <span aria-hidden="true">&raquo;</span>
+                                </a>
+                            </li>
+                        </ul>	
+                    </nav>-->	
+
+                </div>
+            </div>
+        </div>
+        <footer style="margin-top: 20px;border-top: 1px solid #C7C7C7">
+            <div class="text-center" style="margin-top: 20px;">
+                <p>Copyright © 2017 &nbsp;&nbsp;&nbsp;请假系统  &nbsp;&nbsp; <br/><br/>Created by <a href="#">@诛仙台</a> </p>
+            </div>
+        </footer>
+        <script src="js/bootstrap.min.js"></script>
+        <script>
+            var new_user = 'new_user.html';
+            $("document").ready(function () {
+                var winWidth = $(window).width();
+                var winHeight = $(window).height();
+                $("#new_user").click(function () {
+                    layer.ready(function () {
+                        layer.open({
+                            type: 2,
+                            title: '用户添加',
+                            maxmin: false,
+                            area: [winWidth + 'px', winHeight + 'px'],
+                            content: new_user
+                        });
+                    });
+                });
+            });
+            function exit() {
+                $.ajax({
+                    url: 'php/exit.php',
+                    async: true,
+                    type: 'post',
+                    success: function () {
+                        window.location.href = "../index.html";
+                    }
+                });
+            }
+        </script>
+    </body>
+</html>

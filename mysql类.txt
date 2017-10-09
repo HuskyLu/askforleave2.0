@@ -1,0 +1,185 @@
+<?php
+
+/**
+ * 数据库配置信息
+ */
+define('DB_HOST', '127.0.0.1:3306');            //服务器
+define('DB_USER', 'root');                 //数据库用户名
+define('DB_PASSWORD', 'asdwsx.06.27');           //数据库密码
+define('DB_NAME', 'TEST');                 //默认数据库
+define('DB_CHARSET', 'utf8');              //数据库字符集
+define('TIMEZONE', "PRC");                 //时区设置
+date_default_timezone_set(TIMEZONE);
+
+/**
+ * 类名：DB
+ * 说明：数据库操作类
+ */
+class mysql {
+
+    public $host;            //服务器
+    public $username;        //数据库用户名
+    public $password;        //数据密码
+    public $db_name;          //数据库名
+    public $conn;            //数据库连接变量
+
+    /**
+     * DB类构造函数
+     */
+
+    public function conn($host = DB_HOST, $username = DB_USER, $password = DB_PASSWORD, $db_name = DB_NAME) {
+        $this->host = $host;
+        $this->username = $username;
+        $this->password = $password;
+        $this->db_name = $db_name;
+    }
+
+    /**
+     * 打开数据库连接
+     */
+    public function open() {
+        $this->conn = mysqli_connect($this->host, $this->username, $this->password)or die('数据库连接失败！</br>错误原因：' . mysql_error());
+        mysqli_select_db($this->db_name)or die('数据库选定失败！</br>错误原因：' . mysqli_error());
+        mysqli_query("SET CHARACTER SET utf8");
+    }
+
+    /**
+     * 关闭数据连接
+     */
+    public function close() {
+        mysqli_close($this->conn);
+    }
+
+    /**
+     * @description调用方法用
+     * @param $sql
+     * @return array
+     */
+    public function QueryAll($sql) {
+        $this->open();
+        $rs = mysqli_query($sql, $this->conn);
+        $objList = array();
+        while ($obj = mysqli_fetch_object($rs)) {
+            if ($obj) {
+                $objList[] = $obj;
+            }
+        }
+        $this->close();
+        return $objList;
+    }
+
+    /**
+     * description查询全部返回Json格式，通讯用
+     * @param $sql
+     * @return string
+     */
+    public function QueryAllJson($sql) {
+        echo $sql;
+        $this->open();
+        $rs = mysqli_query($sql, $this->conn);
+        $objList = array();
+        $i = 0;
+        while ($obj = mysqli_fetch_object($rs)) {
+            $objList[$i] = $obj;
+            $i++;
+        }
+        $this->close();
+        return json_encode(array("result" => "success", 'data' => $objList));
+    }
+
+    /**
+     * @description 插入数据到数据库中
+     * @param $tableName 表名
+     * @param array $columns 包含表中所有字段名的数组。默认空数组，则是全部有序字段名
+     * @param array $values  包含对应所有字段的属性值的数组
+     * @return int
+     */
+    public function insertData($tableName, $columns = array(), $values = array()) {
+        $sql = 'insert into ' . $tableName . '( ';
+        for ($i = 0; $i < sizeof($columns); $i ++) {
+            $sql .= $columns[$i];
+            if ($i < sizeof($columns) - 1) {
+                $sql .= ',';
+            }
+        }
+        $sql .= ') values ( ';
+        for ($i = 0; $i < sizeof($values); $i ++) {
+            $sql .= "'" . $values[$i] . "'";
+            if ($i < sizeof($values) - 1) {
+                $sql .= ',';
+            }
+        }
+        $sql .= ' )';
+        $this->open();
+        mysqli_query($sql, $this->conn);
+        return true;
+//      $id = mysql_insert_id($this->conn);//取得上一步操作产生的ID(2)
+//      $this->close();(2)
+//      return $id;//(2)
+    }
+
+    /**
+     * 通过表中的某一属性获取数据
+     */
+    public function getDataByAtr($tableName, $atrName, $atrValue) {
+        $data = $this->QueryAll("SELECT * FROM " . $tableName . " WHERE $atrName = '$atrValue'");
+        if (count($data) != 0)
+            return $data;
+        return NULL;
+    }
+
+    /**
+     * description_
+     * 通过表中的"id"，删除记录
+     */
+    public function delete($tableName, $atrName, $atrValue) {
+        echo $tableName;
+        $this->open();
+        $deleteResult = false;
+        if (mysqli_query("DELETE FROM " . $tableName . " WHERE $atrName = '$atrValue'"))
+            $deleteResult = true;
+        $this->close();
+        if ($deleteResult)
+            return true;
+        else
+            return false;
+    }
+
+    /**
+     * 更新表中的属性值
+     */
+    public function updateById($tableName, $atrName, $atrValue, $key = array(), $value = array()) {
+        $db = new DB();
+        $db->open();
+        $sql = 'update from '.$tableName.' set ';
+        for ($i=0;$i< sizeof($key);$i++){
+            
+        }
+        if (mysqli_query("UPDATE " . $tableName . " SET $key = '$value' WHERE $atrName = '$atrValue' ")) {  //$key不要单引号
+            $db->close();
+            return true;
+        } else {
+            $db->close();
+            return false;
+        }
+    }
+
+    /*
+     * @description: 取得一个table的所有属性名
+     * @param: $tbName 表名
+     * @return：字符串数组
+     */
+
+    public function fieldName($tableName) {
+        $resultName = array();
+        $i = 0;
+        $this->open();
+        $result = mysqli_query("SELECT * FROM " . $tableName);
+        while ($property = mysqli_fetch_field($result)) {
+            $resultName[$i++] = $property->name;
+        }
+        $this->close();
+        return $resultName;
+    }
+
+}

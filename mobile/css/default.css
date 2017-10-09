@@ -1,0 +1,35 @@
+.btn-nav{
+	display: block;
+	width: calc(50% - 5px);
+	height: calc(50% - 10px);
+	position: relative;
+	float: left;
+	text-align: center;
+	color: #fff;
+	border-radius: 10px;
+}
+.btn-backcol1{
+	background-color: rgba(238,201,0,.8);
+}
+.btn-backcol2{
+	background-color: rgba(176,196,222,.8);
+	margin-left: 10px;
+}
+.btn-backcol3{
+	background-color: rgba(205,0,0,.8);
+	margin-top:10px;
+}
+.btn-backcol4{
+	background-color: rgba(255,140,0,.8);
+	margin: 10px 0 0 10px;
+}
+.btn-backcol5{
+	background-color: rgba(30,144,255,.8);
+	margin-top: 10px;
+}
+.btn-nav>span{
+	margin-top: 20%;
+}
+.btn-nav>p{
+	margin-top: 10%;
+}
