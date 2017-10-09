@@ -1,0 +1,63 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>添加请假内容</title>
+        <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no" />
+        <link href="css/check.css" rel="stylesheet" type="text/css" />
+        <link rel="stylesheet" href="css/bootstrap3.3.0.min.css" type="text/css"/>
+        <link rel="icon" href="ico/1.ico">
+        <script src="js/jquery-1.8.3.min.js"></script>
+    </head>
+    <body>
+        <div class="container" style="position: relative;top: 100px;">
+            <form class="container form-horizontal" role="form" action="javascript:submit();" method="post">
+                <div class="form-group">
+                    <label for="meeting" class="col-sm-2 control-label">会议名称</label>
+                    <div class="col-sm-10">
+                        <select class="form-control select" name="meeting" id="meeting">
+                            <option value="">请选择会议名称</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="meetingDate" class="col-sm-2 control-label">会议日期</label>
+                    <div class="col-sm-10">
+                        <input class="form-control" type="text" readonly="readonly" name="time" id="time" placeholder="会议日期" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="reason" class="col-sm-2 control-label">请假事由</label>
+                    <div class="col-sm-10">
+                        <textarea class="form-control" name="reason" id="reason" placeholder="请输入请假事由"></textarea>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="submit" class="col-sm-2 control-label"></label>
+                    <div class="col-sm-10">
+                        <button id="submit" class="btn btn-success">提交</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <script src="script/meeting.js" type="text/javascript"></script>
+        <script type="text/javascript">
+            $(document).ready(function () {
+                $.ajax({
+                    url: "php/getMeeting.php",
+                    type: "POST",
+                    dataType: "json",
+                    success: function (data) {
+                        for (var i = 0; i < data.length; i++) {
+                            var option = '<option value="' + data[i].meetingName + '" time="' + data[i].meetingTime + '">' + data[i].meetingName + '</option>';
+                            $("#meeting").append(option);
+                        }
+                    }
+                });
+            });
+            $("#meeting").change(function () {
+                $("#time").val($("#meeting option:selected").attr("time"));
+            });
+        </script>
+    </body>
+</html>

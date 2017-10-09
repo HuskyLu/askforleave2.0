@@ -1,0 +1,55 @@
+<!doctype html>
+<html>
+	<head>
+        <meta charset="UTF-8">
+            <title>添加请假内容</title>
+            <meta name="viewport" content="width=device-width,initial-scale=1" />
+            <link href="css/check.css" rel="stylesheet" type="text/css" />
+            <link rel="stylesheet" href="css/bootstrap3.3.0.min.css" type="text/css"/>
+            <script src="js/jquery-1.8.3.min.js"></script>
+    </head>
+    <body>
+        <div class="container" style="position: relative;top: 100px;">
+            <form class="container form-horizontal" role="form" action="Add.php" method="post">
+                <div class="form-group">
+                    <label for="meeting" class="col-sm-2 control-label">会议名称</label>
+                    <div class="col-sm-10">
+                    	<select class="form-control" name="meeting" id="meetingName">
+                    		<option value="">请选择会议名称</option>
+                    		<option value="1">1</option>
+                    		<option value="1">1</option>
+                    		<option value="1">1</option>
+                    		<option value="1">1</option>
+                    		<option value="1">1</option>
+                    	</select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="meetingTime" class="col-sm-2 control-label">会议日期</label>
+                    <div class="col-sm-10">
+                    	<select class="form-control" name="meetingTime" id="meetingDate">
+                    		<option value="">请选择输入日期</option>
+                    		<option value="1">1</option>
+                    		<option value="1">1</option>
+                    		<option value="1">1</option>
+                    		<option value="1">1</option>
+                    		<option value="1">1</option>
+                    	</select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="reason" class="col-sm-2 control-label">请假事由</label>
+                    <div class="col-sm-10">
+                        <textarea class="form-control" name="reason" id="reason" placeholder="请输入请假事由"></textarea>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="submit" class="col-sm-2 control-label"></label>
+                    <div class="col-sm-10">
+                        <button class="btn btn-success">提交</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </body>
+</html>

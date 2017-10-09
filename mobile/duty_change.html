@@ -1,0 +1,118 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>添加请假内容</title>
+        <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no" />
+        <link rel="icon" href="ico/1.ico">
+        <link href="css/check.css" rel="stylesheet" type="text/css" />
+        <link rel="stylesheet" href="css/bootstrap3.3.0.min.css" type="text/css"/>
+        <script src="js/jquery-1.8.3.min.js"></script>
+        <script src="js/datePicker.js"></script>
+    </head>
+    <body>
+        <div class="container" style="position: relative;top: 100px;">
+            <form class="container form-horizontal" role="form" action="javascript:submit();" method="post">
+                <div class="form-group">
+                    <label for="meeting" class="col-sm-2 control-label">值班日期</label>
+                    <div class="col-sm-10">
+                        <input class="form-control" type="text" name="duty_date" id="dutyDate" readonly="readonly" placeholder="请输入请假日期">
+                        <script>
+                            var calendar = new datePicker();
+                            calendar.init({
+                                'trigger': '#dutyDate', /*按钮选择器，用于触发弹出插件*/
+                                'type': 'date', /*模式：date日期；datetime日期时间；time时间；ym年月；*/
+                                'minDate': '1900-1-1', /*最小日期*/
+                                'maxDate': '2100-12-31', /*最大日期*/
+                                'onSubmit': function () {/*确认时触发事件*/
+                                    var theSelectData = calendar.value;
+                                },
+                                'onClose': function () {/*取消时触发事件*/
+                                }
+                            });
+                        </script>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="time" class="col-sm-2 control-label">值班班次</label>
+                    <div class="col-sm-10">
+                        <select class="form-control" name="time" id="time">
+                            <option value="">请选择班次</option>
+                            <option value="1">一二节</option>
+                            <option value="2">三四节</option>
+                            <option value="3">五六节</option>
+                            <option value="4">七八节</option>
+                            <option value="5">九十节</option>
+                            <option value="6">十一，十二，十三节</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="reason" class="col-sm-2 control-label">请假事由</label>
+                    <div class="col-sm-10">
+                        <textarea class="form-control" name="reason" id="reason" placeholder="请输入请假事由"></textarea>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="submit" class="col-sm-2 control-label"></label>
+                    <div class="col-sm-10">
+                        <button class="btn btn-success">提交</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <script type="text/javascript" src="script/duty.js"></script>
+        <script type="text/javascript">
+            var id = getQueryString("id");
+            var table = getQueryString("table");
+            var time = new Array("一二节", "三四节", "五六节", "七八节", "九十节", "十一，十二，十三节");
+            $.ajax({
+                url: 'php/getOneMess.php',
+                data:{"id":id,"table":table},
+                dataType:"json",
+                type:"POST",
+                success:function(data){
+                    $("#dutyDate").val(data.date);
+                    $("#time").val(data.time);
+                    $("#reason").val(data.reason);
+                }
+            });
+            function submit() {
+                var startTime = $("#dutyDate").val();
+                var start = new Date(startTime.replace("-", "/").replace("-", "/")+" 23:59:59");
+                var end = new Date();
+                if ($("#dutyDate").val() == "" || $("#time").val() == "" || $("#reason").val() == "") {
+                    alert("还有空白的选项没填！");
+                    return false;
+                } else if (end > start) {
+                    alert("该系统不允许事后一天再请假！");
+                    return false;
+                } else {
+                    $.ajax({
+                        url: 'php/dutyChange.php',
+                        type: 'POST',
+                        async: true,
+                        dataType: 'json',
+                        data: {"date":startTime,"shift":$("#time").val(),"reason":$("#reason").val(),"id":id},
+                        success: function (data) {
+                            alert("请假信息已提交！");
+                            var url = window.parent.location.pathname;
+                            if(url == "/askforleave/mobile/duty_log.html" || url == "/askforleave/duty_log.html"){
+                                parent.addData();
+                            }
+                            parent.layer.closeAll('iframe');
+                        }
+                    });
+                }
+            }
+            function getQueryString(name) {
+                var reg = new RegExp('(^|&)' + name + '=([^&]*)(&|$)', 'i');
+                var r = window.location.search.substr(1).match(reg);
+                if (r != null) {
+                    return unescape(r[2]);
+                }
+                return null;
+            }
+        </script>
+    </body>
+</html>
