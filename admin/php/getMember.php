@@ -12,7 +12,7 @@ $where = " where 1=1 ";
 if($searchStr != ""){
     $where = $where." and (name like '%".$searchStr."%' or number like '%".$searchStr."%')";
 }
-$sql = "select * from member ".$where." order by department desc limit ".$limit.",25 ";
+$sql = "select * from member ".$where." order by department desc,field(position,'主席','秘书长','部长','委员','干事')  limit ".$limit.",25 ";
 $query = query($conn, $sql);
 $i=0;
 $echo;

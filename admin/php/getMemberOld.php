@@ -16,7 +16,7 @@ if($searchStr != ""){
 if($period != ""){
     $where = $where." and period = ".$period;
 }
-$sql = "select * from member_odd ".$where." order by department desc,period desc limit ".$limit.",25 ";
+$sql = "select * from member_odd ".$where." order by department desc,period desc,field(position,'主席','秘书长','部长','委员','干事') limit ".$limit.",25 ";
 $query = query($conn, $sql);
 $i=0;
 $echo;
