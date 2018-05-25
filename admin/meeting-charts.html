@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <!--[if lt IE 9]>
+<script type="text/javascript" src="lib/html5shiv.js"></script>
+<script type="text/javascript" src="lib/respond.min.js"></script>
+<![endif]-->
+        <link rel="stylesheet" type="text/css" href="static/h-ui/css/H-ui.min.css" />
+        <link rel="stylesheet" type="text/css" href="static/h-ui.admin/css/H-ui.admin.css" />
+        <link rel="stylesheet" type="text/css" href="lib/Hui-iconfont/1.0.8/iconfont.css" />
+        <link rel="stylesheet" type="text/css" href="static/h-ui.admin/skin/default/skin.css" id="skin" />
+        <link rel="stylesheet" type="text/css" href="static/h-ui.admin/css/style.css" />
+        <!--[if IE 6]>
+<script type="text/javascript" src="lib/DD_belatedPNG_0.0.8a-min.js" ></script>
+<script>DD_belatedPNG.fix('*');</script>
+<![endif]-->
+    </head>
+    <body>
+        <nav class="breadcrumb">
+            <i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 统计管理 <span class="c-gray en">&gt;</span> 会议请假图表统计 <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a>
+        </nav>
+        <div class="page-container">
+            <div class="text-c"> 日期范围：
+                <input type="text" onfocus="WdatePicker({maxDate: '#F{$dp.$D(\'datemax\')||\'%y-%M-%d\'}'})" id="datemin" class="input-text Wdate" style="width:120px;">
+                -
+                <input type="text" onfocus="WdatePicker({minDate: '#F{$dp.$D(\'datemin\')}', maxDate: '%y-%M-%d'})" id="datemax" class="input-text Wdate" style="width:120px;">
+                <button type="submit" class="btn btn-success radius" id="search" name="search"><i class="Hui-iconfont">&#xe665;</i> 搜索</button>
+            </div>
+            <div id="container" style="min-width:700px;height:600px"></div>
+        </div>
+        <script type="text/javascript" src="lib/jquery/1.9.1/jquery.min.js"></script> 
+        <script type="text/javascript" src="lib/layer/2.4/layer.js"></script>
+        <script type="text/javascript" src="static/h-ui/js/H-ui.min.js"></script> 
+        <script type="text/javascript" src="static/h-ui.admin/js/H-ui.admin.js"></script>
+        <script type="text/javascript" src="js/echarts.common.min.js"></script>
+        <script type="text/javascript" src="lib/My97DatePicker/4.8/WdatePicker.js"></script> 
+        <script type="text/javascript" src="lib/datatables/1.10.0/jquery.dataTables.min.js"></script> 
+        <script type="text/javascript" src="lib/laypage/1.2/laypage.js"></script>
+        <script type="text/javascript" src="js/jquery.pagination.min.js"></script>
+        <script type="text/javascript">
+                    var myChart = echarts.init(document.getElementById('container'));
+                    $(document).ready(function () {
+                        search();
+                        $("#search").click(function () {
+                            search();
+                        });
+                    });
+                    function search() {
+                        var obj = [];
+                        $.ajax({
+                            url: "php/getMeetingChartData.php",
+                            async: false,
+                            type: "post",
+                            data: {start: $("#datemin").val(), end: $("#datemax").val()},
+                            dataType: "json",
+                            success: function (data) {
+                                for (var i = 0; i < data.length; i++) {
+                                    obj.push({value: parseInt(data[i].value),name: data[i].name});
+                                }
+                                console.log(obj);
+                                var option = {
+                                    title: {
+                                        text: "会议请假部门比例",
+                                        left: 'center',
+                                        top: 20,
+                                        textStyle: {
+                                            color: '#000'
+                                        }
+                                    },
+                                    tooltip: {
+                                        trigger: 'item',
+                                        formatter: "{a} <br/>{b} : {c}人 ({d}%)"
+                                    },
+                                    visualMap: {
+                                        show: false,
+                                        min: 80,
+                                        max: 600,
+                                        inRange: {
+                                            colorLightness: [0, 1]
+                                        }
+                                    },
+                                    series: [{
+                                            name: '请假情况',
+                                            type: 'pie',
+                                            radius: '80%',
+                                            center: ['50%', '55%'],
+                                            data: obj.sort(function (a, b) { return a.value - b.value; }),
+                                            roseType: 'radius',
+                                            label: {
+                                                normal: {
+                                                    textStyle: {
+                                                        color: 'rgba(0, 0, 0, 0.7)'
+                                                    }
+                                                }
+                                            },
+                                            labelLine: {
+                                                normal: {
+                                                    lineStyle: {
+                                                        color: 'rgba(0, 0, 0, 0.7)'
+                                                    },
+                                                    smooth: 0.2,
+                                                    length: 10,
+                                                    length2: 20
+                                                }
+                                            },
+                                            itemStyle: {
+                                                normal: {
+                                                    color: '#acb',
+                                                    shadowBlur: 200,
+                                                    shadowColor: 'rgba(0, 0, 0, 0.5)'
+                                                }
+                                            },
+                                            animationType: 'scale',
+                                            animationEasing: 'elasticOut',
+                                            animationDelay: function (idx) {
+                                                return Math.random() * 200;
+                                            }
+                                        }
+                                    ]
+                                }
+                                myChart.setOption(option);
+                            }
+                        });
+                    }
+        </script>
+    </body>
+</html>

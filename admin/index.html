@@ -109,32 +109,32 @@
                         </ul>
                     </dd>
                 </dl>
-<!--                <dl id="menu-tongji">
+                <dl id="menu-tongji">
                     <dt><i class="Hui-iconfont">&#xe61a;</i> 请假统计（图表）<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
                     <dd>
                         <ul>
-                            <li><a data-href="charts-1.html" data-title="折线图" href="javascript:void(0)">折线图</a></li>
-                            <li><a data-href="charts-2.html" data-title="时间轴折线图" href="javascript:void(0)">时间轴折线图</a></li>
-                            <li><a data-href="charts-3.html" data-title="区域图" href="javascript:void(0)">区域图</a></li>
+                            <li><a data-href="duty-charts.html" data-title="值班请假图表统计" href="javascript:void(0)">值班请假图表统计</a></li>
+                            <li><a data-href="meeting-charts.html" data-title="会议请假图表统计" href="javascript:void(0)">会议请假图表统计</a></li>
+<!--                            <li><a data-href="charts-3.html" data-title="区域图" href="javascript:void(0)">区域图</a></li>
                             <li><a data-href="charts-4.html" data-title="柱状图" href="javascript:void(0)">柱状图</a></li>
                             <li><a data-href="charts-5.html" data-title="饼状图" href="javascript:void(0)">饼状图</a></li>
                             <li><a data-href="charts-6.html" data-title="3D柱状图" href="javascript:void(0)">3D柱状图</a></li>
-                            <li><a data-href="charts-7.html" data-title="3D饼状图" href="javascript:void(0)">3D饼状图</a></li>
+                            <li><a data-href="charts-7.html" data-title="3D饼状图" href="javascript:void(0)">3D饼状图</a></li>-->
+                        </ul>
+                    </dd>
+                </dl>
+<!--                <dl id="menu-system">
+                    <dt><i class="Hui-iconfont">&#xe62e;</i> 系统管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
+                    <dd>
+                        <ul>
+                            <li><a data-href="system-base.html" data-title="系统设置" href="javascript:void(0)">系统设置</a></li>
+                            <li><a data-href="system-category.html" data-title="栏目管理" href="javascript:void(0)">栏目管理</a></li>
+                            <li><a data-href="system-data.html" data-title="数据字典" href="javascript:void(0)">数据字典</a></li>
+                            <li><a data-href="system-shielding.html" data-title="屏蔽词" href="javascript:void(0)">屏蔽词</a></li>
+                            <li><a data-href="system-log.html" data-title="系统日志" href="javascript:void(0)">系统日志</a></li>
                         </ul>
                     </dd>
                 </dl>-->
-                <!-- <dl id="menu-system">
-                        <dt><i class="Hui-iconfont">&#xe62e;</i> 系统管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
-                        <dd>
-                                <ul>
-                                        <li><a data-href="system-base.html" data-title="系统设置" href="javascript:void(0)">系统设置</a></li>
-                                        <li><a data-href="system-category.html" data-title="栏目管理" href="javascript:void(0)">栏目管理</a></li>
-                                        <li><a data-href="system-data.html" data-title="数据字典" href="javascript:void(0)">数据字典</a></li>
-                                        <li><a data-href="system-shielding.html" data-title="屏蔽词" href="javascript:void(0)">屏蔽词</a></li>
-                                        <li><a data-href="system-log.html" data-title="系统日志" href="javascript:void(0)">系统日志</a></li>
-                                </ul>
-                        </dd>
-                </dl> -->
             </div>
         </aside>
         <div class="dislpayArrow hidden-xs"><a class="pngfix" href="javascript:void(0);" onClick="displaynavbar(this)"></a></div>
@@ -222,30 +222,18 @@
                     content: url
                 });
             }
-            function exit(){
+            function exit() {
                 $.ajax({
-                    url:'php/exit.php',
-                    type:'post',
-                    aysnc:true,
-                    dataType:'text',
-                    success:function(data){
-                        window.location.href="../index.html";
+                    url: 'php/exit.php',
+                    type: 'post',
+                    aysnc: true,
+                    dataType: 'text',
+                    success: function (data) {
+                        window.location.href = "../index.html";
                     }
                 });
             }
 
-        </script> 
-
-        <!--此乃百度统计代码，请自行删除-->
-        <script>
-            var _hmt = _hmt || [];
-            (function () {
-                var hm = document.createElement("script");
-                hm.src = "https://hm.baidu.com/hm.js?080836300300be57b7f34f4b3e97d911";
-                var s = document.getElementsByTagName("script")[0];
-                s.parentNode.insertBefore(hm, s);
-            })();
         </script>
-        <!--/此乃百度统计代码，请自行删除-->
     </body>
 </html>
